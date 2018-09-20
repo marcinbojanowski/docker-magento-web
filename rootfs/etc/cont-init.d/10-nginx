@@ -1,0 +1,10 @@
+#!/usr/bin/with-contenv sh
+set -x
+
+rm -f /etc/nginx/sites-enabled/default
+
+sed  -i 's/{{ENVIRONMENT_TYPE}}/'"${ENVIRONMENT_TYPE}"'/' /etc/nginx/sites-enabled/magento.conf
+sed  -i 's/{{ENVIRONMENT_NAME}}/'"${ENVIRONMENT_NAME}"'/' /etc/nginx/includes/magento/maps.${ENVIRONMENT_TYPE}.conf
+
+sed -i "s/{{ENVIRONMENT_TYPE}}/${ENVIRONMENT_TYPE}/g" /etc/nginx/includes/magento/main.conf
+sed -i "s/{{ENVIRONMENT_NAME}}/${ENVIRONMENT_NAME}/g" /etc/nginx/includes/magento/main.conf

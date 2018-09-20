@@ -1,0 +1,3 @@
+#!/usr/bin/with-contenv execlineb
+
+php-fpm -F -y /usr/local/etc/php-fpm.conf

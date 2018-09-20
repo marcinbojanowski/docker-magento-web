@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -x
+
+mkdir -p /var/log/php-fpm
+mkdir -p /var/run/php-fpm
+mkdir -p /var/tmp/php/opcache
+rm -rf /usr/local/etc/php-fpm.d/www.conf
+rm -rf /usr/local/etc/php-fpm.d/www.conf.default
+rm -rf /usr/local/etc/php-fpm.d/docker.conf
+rm -rf /usr/local/etc/php-fpm.d/zz-docker.conf
