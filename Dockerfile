@@ -9,6 +9,10 @@ ENV S6_OVERLAY_VERSION=v1.19.1.1 \
 
 RUN set -xe \
 
+    # add magento user and group
+    && addgroup -g 1000 -S magento \
+    && adduser  -u 104  -D -S -G magento magento \
+
     # Install all build dependencies
     && apk add --no-cache --virtual .build-deps \
         icu-dev \
@@ -153,8 +157,11 @@ RUN set -xe \
     # Remove apk cache
     && rm -rf /var/cache/apk/*
 
+
 # root filesystem
 COPY rootfs /
+
+
 
 HEALTHCHECK --interval=30s --timeout=3s \
     CMD curl -f http://localhost/ || exit 1
