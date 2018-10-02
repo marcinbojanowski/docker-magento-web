@@ -9,17 +9,27 @@ chown magento:users /var/www/magento/pub/media
 cp /var/magento-config/env.php /var/www/magento/app/etc
 chown magento:users /var/www/magento/app/etc/env.php
 
-sed -i "s/{{MAGENTO_DB_HOST}}/${MAGENTO_DB_HOST}/g" /var/www/magento/app/etc/env.php
 sed -i "s/{{MAGENTO_DB_NAME}}/${MAGENTO_DB_NAME}/g" /var/www/magento/app/etc/env.php
+sed -i "s/{{MAGENTO_DB_HOST}}/${MAGENTO_DB_HOST}/g" /var/www/magento/app/etc/env.php
 sed -i "s/{{MAGENTO_DB_USER}}/${MAGENTO_DB_USER}/g" /var/www/magento/app/etc/env.php
-
 sed -i "s/{{MAGENTO_DB_PASSWORD}}/${MAGENTO_DB_PASSWORD}/g" /var/www/magento/app/etc/env.php
+
 sed -i "s/{{MAGENTO_SESSION_HOST}}/${MAGENTO_SESSION_HOST}/g" /var/www/magento/app/etc/env.php
 sed -i "s/{{MAGENTO_SESSION_PORT}}/${MAGENTO_SESSION_PORT}/g" /var/www/magento/app/etc/env.php
+sed -i "s/{{MAGENTO_SESSION_DATABASE}}/${MAGENTO_SESSION_DATABASE}/g" /var/www/magento/app/etc/env.php
+
 sed -i "s/{{MAGENTO_CACHE_HOST}}/${MAGENTO_CACHE_HOST}/g" /var/www/magento/app/etc/env.php
 sed -i "s/{{MAGENTO_CACHE_PORT}}/${MAGENTO_CACHE_PORT}/g" /var/www/magento/app/etc/env.php
+sed -i "s/{{MAGENTO_CACHE_DATABASE}}/${MAGENTO_CACHE_DATABASE}/g" /var/www/magento/app/etc/env.php
+
 
 sed -i "s/{{MAGENTO_WEBCACHE_HOST}}/${MAGENTO_WEBCACHE_HOST}/g" /var/www/magento/app/etc/env.php
+
+sed -i "s/{{MAGENTO_ADMIN_URL}}/${MAGENTO_ADMIN_URL:-admin}/g" /var/www/magento/app/etc/env.php
+sed -i "s/{{MAGENTO_CRYPT}}/${MAGENTO_CRYPT}/g" /var/www/magento/app/etc/env.php
+
+sed -i "s/{{MAGENTO_CRYPT}}/${MAGENTO_CRYPT}/g" /var/www/magento/app/etc/env.php
+
 
 # upgrade magento (db schema and data):
 sudo -u magento php -d memory_limit=4g /var/www/magento/bin/magento setup:upgrade --keep-generated -v --no-interaction --ansi
