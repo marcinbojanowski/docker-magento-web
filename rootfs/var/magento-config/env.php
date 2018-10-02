@@ -34,7 +34,7 @@ if (!empty('{{MAGENTO_SESSION_HOST}}') && !empty('{{MAGENTO_SESSION_PORT}}')) {
                     'password' => '',
                     'timeout' => '2.5',
                     'persistent_identifier' => '',
-                    'database' => '0',
+                    'database' => '{{MAGENTO_SESSION_DATABASE}}',
                     'compression_threshold' => '2048',
                     'compression_library' => 'gzip',
                     'log_level' => '1',
@@ -64,7 +64,7 @@ if (!empty('{{MAGENTO_CACHE_HOST}}') && !empty('{{MAGENTO_CACHE_PORT}}')) {
                             array(
                                 'server' => '{{MAGENTO_CACHE_HOST}}',
                                 'port' => '{{MAGENTO_CACHE_PORT}}',
-                                'database' => '0',
+                                'database' => '{{MAGENTO_CACHE_DATABASE}}',
                                 'persistent' => '',
                                 'force_standalone' => '0',
                                 'connect_retries' => '1',
