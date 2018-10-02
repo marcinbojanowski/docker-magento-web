@@ -2,10 +2,6 @@
 
 set -x
 
-# create media directory (required by magento)
-mkdir -p /var/www/magento/pub/media
-chown magento:users /var/www/magento/pub/media
-
 cp /var/magento-config/env.php /var/www/magento/app/etc
 chown magento:users /var/www/magento/app/etc/env.php
 
@@ -22,7 +18,6 @@ sed -i "s/{{MAGENTO_CACHE_HOST}}/${MAGENTO_CACHE_HOST}/g" /var/www/magento/app/e
 sed -i "s/{{MAGENTO_CACHE_PORT}}/${MAGENTO_CACHE_PORT}/g" /var/www/magento/app/etc/env.php
 sed -i "s/{{MAGENTO_CACHE_DATABASE}}/${MAGENTO_CACHE_DATABASE}/g" /var/www/magento/app/etc/env.php
 
-
 sed -i "s/{{MAGENTO_WEBCACHE_HOST}}/${MAGENTO_WEBCACHE_HOST}/g" /var/www/magento/app/etc/env.php
 
 sed -i "s/{{MAGENTO_ADMIN_URL}}/${MAGENTO_ADMIN_URL:-admin}/g" /var/www/magento/app/etc/env.php
@@ -30,15 +25,9 @@ sed -i "s/{{MAGENTO_CRYPT}}/${MAGENTO_CRYPT}/g" /var/www/magento/app/etc/env.php
 
 sed -i "s/{{MAGENTO_CRYPT}}/${MAGENTO_CRYPT}/g" /var/www/magento/app/etc/env.php
 
-
 # upgrade magento (db schema and data):
 sudo -u magento php -d memory_limit=4g /var/www/magento/bin/magento setup:upgrade --keep-generated -v --no-interaction --ansi
 
 # flush magento cache:
 sudo -u magento php /var/www/magento/bin/magento cache:flush
 
-#link /var/media to pub/media (after setup:update - otherwise magento iterates through media directory checking permissions)
-if ! test -L /var/www/magento/pub/media ; then
-    rm -rf /var/www/magento/pub/media
-    ln -nsf /var/media /var/www/magento/pub/media
-fi
