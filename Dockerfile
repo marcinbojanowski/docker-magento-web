@@ -1,4 +1,4 @@
-FROM php:7.0-fpm-alpine3.7
+FROM php:5.6-fpm-alpine3.8
 
 # Add s6-overlay
 ENV S6_OVERLAY_VERSION=v1.19.1.1 \
@@ -148,6 +148,12 @@ RUN set -xe \
     # install composer
     && curl -sS https://getcomposer.org/installer | php -- --filename=composer --install-dir=/usr/local/bin \
 
+    # install n98-magerun
+    && curl -fSL -o /usr/local/bin/n98-magerun \
+    --url https://files.magerun.net/n98-magerun.phar \
+    && chmod +x /usr/local/bin/n98-magerun \
+
+
     # Delete build dependencies to save space
     && apk del .build-deps \
 
@@ -160,8 +166,6 @@ RUN set -xe \
 
 # root filesystem
 COPY rootfs /
-
-
 
 HEALTHCHECK --interval=30s --timeout=3s \
     CMD curl -f http://localhost/ || exit 1

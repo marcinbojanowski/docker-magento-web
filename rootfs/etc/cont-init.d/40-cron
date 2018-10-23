@@ -4,5 +4,4 @@ set -x
 if test "${MAGENTO_DISABLE_CRON}" -eq 1 ; then exit; fi
 
 # not sure why i need to create subprocess..weird, probably i dont undestand something..
-echo "*/1 * * * * (php /var/www/magento/bin/magento cron:run >> /var/www/magento/var/log/magento.cron.log &)" | crontab -u magento -
-
+echo "*/5 * * * * (sh /var/www/magento/cron.sh >> /var/www/magento/var/log/magento.cron.log &)" | crontab -u magento -
