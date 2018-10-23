@@ -110,7 +110,7 @@ RUN set -xe \
     && echo "opcache.max_accelerated_files=65406" >> docker-php-ext-opcache.ini \
 
     # install nginx
-    && apk --update add openssl-dev pcre-dev zlib-dev build-base \
+    && apk --update add libressl-dev pcre-dev zlib-dev build-base \
     && mkdir -p /tmp/src \
     && cd /tmp/src \
     && curl http://nginx.org/download/${NGINX_VERSION}.tar.gz > ${NGINX_VERSION}.tar.gz \
