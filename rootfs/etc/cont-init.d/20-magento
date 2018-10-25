@@ -2,7 +2,8 @@
 
 set -x
 
-cp /var/magento-config/env.php /var/www/magento/app/etc
+mkdir -p /var/www/magento/app/etc/
+cp /var/magento-config/env.php /var/www/magento/app/etc/
 chown magento:users /var/www/magento/app/etc/env.php
 
 sed -i "s/{{MAGENTO_DB_NAME}}/${MAGENTO_DB_NAME}/g" /var/www/magento/app/etc/env.php
@@ -24,10 +25,4 @@ sed -i "s/{{MAGENTO_ADMIN_URL}}/${MAGENTO_ADMIN_URL:-admin}/g" /var/www/magento/
 sed -i "s/{{MAGENTO_CRYPT}}/${MAGENTO_CRYPT}/g" /var/www/magento/app/etc/env.php
 
 sed -i "s/{{MAGENTO_CRYPT}}/${MAGENTO_CRYPT}/g" /var/www/magento/app/etc/env.php
-
-# upgrade magento (db schema and data):
-sudo -u magento php -d memory_limit=4g /var/www/magento/bin/magento setup:upgrade --keep-generated -v --no-interaction --ansi
-
-# flush magento cache:
-sudo -u magento php /var/www/magento/bin/magento cache:flush
 
