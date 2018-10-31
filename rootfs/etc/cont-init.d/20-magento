@@ -1,8 +1,13 @@
 #!/usr/bin/with-contenv sh
 
 set -x
+mkdir -p /var/www/magento/app/etc
+if [[ -z "${MAGENTO_CACHE_HOST}" ]]; then
+	cp /var/magento-config/local-redis.xml /var/www/magento/app/etc/local.xml
+else 
+	cp /var/magento-config/local.xml /var/www/magento/app/etc/local.xml
+fi
 
-cp /var/magento-config/local.xml /var/www/magento/app/etc
 chown magento:users /var/www/magento/app/etc/local.xml
 
 sed -i "s/{{MAGENTO_DB_NAME}}/${MAGENTO_DB_NAME}/g" /var/www/magento/app/etc/local.xml
