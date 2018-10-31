@@ -3,9 +3,9 @@
 set -x
 mkdir -p /var/www/magento/app/etc
 if [[ -z "${MAGENTO_CACHE_HOST}" ]]; then
-	cp /var/magento-config/local-redis.xml /var/www/magento/app/etc/local.xml
-else 
 	cp /var/magento-config/local.xml /var/www/magento/app/etc/local.xml
+else 
+	cp /var/magento-config/local-redis.xml /var/www/magento/app/etc/local.xml
 fi
 
 chown magento:users /var/www/magento/app/etc/local.xml
